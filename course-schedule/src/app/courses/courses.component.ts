@@ -27,6 +27,8 @@ export class CoursesComponent implements OnInit {
       new Course("HTML and CSS: Where Fun Lives", "LC102", ["Mon", "Wed"], "2:00 PM", "3:00 PM", 2)
     ];
 
+    this.sort(this.allCourses);
+
     this.availableCourses = this.allCourses.slice(0);
 
   }
@@ -34,11 +36,13 @@ export class CoursesComponent implements OnInit {
   addCourse(index: number): void {
     this.myCourses.push(this.availableCourses[index]);
     this.availableCourses.splice(index,1);
+    this.sort(this.myCourses);
   }
 
   removeCourse(index: number): void {
     this.availableCourses.push(this.myCourses[index]);
     this.myCourses.splice(index,1);
+    this.sort(this.availableCourses);
   }
 
   sumCredits(): number {
@@ -47,6 +51,18 @@ export class CoursesComponent implements OnInit {
       sum += this.myCourses[i].credits;
     }
     return sum;
+  }
+
+  sort(array: Course[]): void {
+    let key = "code";
+    array.sort(function(a: Course, b: Course): number {
+      if(a[key] < b[key]) {
+        return -1;
+      } else if (a[key] > b[key]) {
+        return 1;
+      }
+      return 0;
+    });
   }
 
 }
