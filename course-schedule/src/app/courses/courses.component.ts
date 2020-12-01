@@ -41,4 +41,12 @@ export class CoursesComponent implements OnInit {
     this.myCourses.splice(index,1);
   }
 
+  sumCredits(): number {
+    let sum: number = 0;
+    for (let i = 0; i < this.myCourses.length; i++) {
+      sum += this.myCourses[i].credits;
+    }
+    return sum;
+  }
+
 }
