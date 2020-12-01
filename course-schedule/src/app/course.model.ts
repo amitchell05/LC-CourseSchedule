@@ -1,2 +1,2 @@
-export class Course.Model {
+export class Course {
 }
