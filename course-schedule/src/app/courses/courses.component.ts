@@ -11,6 +11,9 @@ export class CoursesComponent implements OnInit {
   availableCourses: Course[] = [];
   myCourses: Course[] = [];
 
+  noCourses: boolean = true;
+  fullCourseLoad: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -34,15 +37,23 @@ export class CoursesComponent implements OnInit {
   }
 
   addCourse(index: number): void {
-    this.myCourses.push(this.availableCourses[index]);
-    this.availableCourses.splice(index,1);
-    this.sort(this.myCourses);
+    if (this.fullCourseLoad === false) {
+      this.myCourses.push(this.availableCourses[index]);
+      this.noCourses = false;
+      this.availableCourses.splice(index,1);
+      this.sort(this.myCourses);
+      this.checkLoad();
+    }
   }
 
   removeCourse(index: number): void {
     this.availableCourses.push(this.myCourses[index]);
     this.myCourses.splice(index,1);
     this.sort(this.availableCourses);
+    if (this.myCourses.length === 0) {
+      this.noCourses = true;
+    }
+    this.checkLoad();
   }
 
   sumCredits(): number {
@@ -63,6 +74,14 @@ export class CoursesComponent implements OnInit {
       }
       return 0;
     });
+  }
+
+  checkLoad(): void {
+    if (this.sumCredits() >= 15 || this.myCourses.length >= 6) {
+      this.fullCourseLoad = true;
+    } else {
+      this.fullCourseLoad = false;
+    }
   }
 
 }
