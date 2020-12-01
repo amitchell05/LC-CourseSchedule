@@ -6,4 +6,8 @@ export class Course {
         public startTime: string, 
         public endTime: string, 
         public credits: number) {};
+
+    getDays() {
+        return this.days.join("/");
+    }
 }

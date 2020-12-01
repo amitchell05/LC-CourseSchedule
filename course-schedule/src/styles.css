@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.vspace {
+	padding-top: 1px;
+}
+
+.clicable:hover {
+	cursor: pointer;
+	opacity: 0.8;
+}
